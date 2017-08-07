@@ -1,0 +1,20 @@
+<li>
+    <div class="item-container" ng-class="{active: item.isActive, selected: item.selected, withCheckbox: showCheckbox()}" ng-click="clickSelectItem(item, $event)"
+        ng-mouseover="onMouseOver(item, $event)">
+        <div class="item-icon" ng-if="item.children.length > 0">
+            <md-icon ng-if="!item.isExpanded" ng-click="onExpandClicked(item, $event)">keyboard_arrow_right</md-icon>
+            <md-icon ng-if="item.isExpanded" ng-click="onExpandClicked(item, $event)">keyboard_arrow_down</md-icon>
+        </div>
+        <div class="item-details">
+            <md-checkbox aria-label="node" ng-if="showCheckbox()" ng-checked="item.selected">
+                {{item.name}}
+            </md-checkbox>
+            <p ng-if="!showCheckbox()">{{item.name}}</p>
+        </div>
+    </div>
+    <ul ng-repeat="child in item.children" ng-if="item.isExpanded">
+        <tree-item item="child" item-selected="subItemSelected(item)" ng-if="!child.isFiltered" use-callback="useCallback" can-select-item="canSelectItem"
+            multi-select="multiSelect " on-active-item="activeSubItem(item, $event) ">
+        </tree-item>
+    </ul>
+</li>
