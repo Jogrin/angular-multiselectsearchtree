@@ -506,6 +506,7 @@
         if ($scope.useCallback) {
           return $scope.canSelectItem($scope.item);
         }
+        return true;
       };
     }
   ]);
