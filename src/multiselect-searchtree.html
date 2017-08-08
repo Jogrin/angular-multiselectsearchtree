@@ -1,10 +1,10 @@
 <div layout="column" class="tree-control" ng-cloak>
     <div class="helper-container">
         <div class="line">
-            <md-input-container ng-hide="filterType === 'hidden'" class="md-icon-float md-block">
+            <md-input-container ng-if="filterType !== 'hidden'" class="md-icon-float md-block">
                 <label>Cerca</label>
                 <md-icon>search</md-icon>
-                <input ng-disabled="filterType === 'disable'" type="text" ng-model="filterKeyword" ng-click="onFilterClicked($event)">
+                <input ng-disabled="filterType === 'disable'" type="text" ng-model="filter.filterKeyword" ng-click="onFilterClicked($event)">
             </md-input-container>
             <md-button ng-if="extraButtons" ng-click="onSelectAll(inputModel,$event)">
                 Select All

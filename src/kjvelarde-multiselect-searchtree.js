@@ -164,7 +164,7 @@
        */
       $scope.clearFilter = function ($event) {
         $event.stopPropagation();
-        $scope.filterKeyword = '';
+        $scope.filter.filterKeyword = '';
       };
       /**
        * Wrapper function for can select item callback.
@@ -296,6 +296,9 @@
         filterType: '@'
       },
       link: function (scope, element, attrs) {
+        scope.filter = {
+          filterKeyword: ''
+        };
 
         if (attrs.callback) {
           scope.useCallback = true;
@@ -361,7 +364,7 @@
         }
 
         function directSearchFilter(item, parent) {
-          if (removeAccents(item.name.toLowerCase()).indexOf(removeAccents(scope.filterKeyword.toLowerCase())) !== -1) {
+          if (removeAccents(item.name.toLowerCase()).indexOf(removeAccents(scope.filter.filterKeyword.toLowerCase())) !== -1) {
             hasParent(item);
           } else {
             item.isFiltered = true;
@@ -376,9 +379,9 @@
         }
 
         function indirectSearchFilter(item) {
-          if (removeAccents(item.name.toLowerCase()).indexOf(removeAccents(scope.filterKeyword.toLowerCase())) !== -1) {
+          if (removeAccents(item.name.toLowerCase()).indexOf(removeAccents(scope.filter.filterKeyword.toLowerCase())) !== -1) {
             item.isFiltered = false;
-          } else if (!isChildrenFiltered(item, scope.filterKeyword)) {
+          } else if (!isChildrenFiltered(item, scope.filter.filterKeyword)) {
             item.isFiltered = false;
           } else {
             item.isFiltered = true;
@@ -386,8 +389,8 @@
           }
         }
 
-        scope.$watch('filterKeyword', function () {
-          if (scope.filterKeyword !== undefined) {
+        scope.$watch('filter.filterKeyword', function () {
+          if (scope.filter.filterKeyword !== undefined) {
             if (scope.directSearch) {
               angular.forEach(scope.inputModel, function (item) {
                 directSearchFilter(item);
