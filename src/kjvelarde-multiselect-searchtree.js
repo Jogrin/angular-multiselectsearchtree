@@ -186,6 +186,7 @@
         if ($scope.useCallback && $scope.canSelectItem(item) === false || $scope.selectOnlyLeafs && item.children && item.children.length > 0) {
           return;
         }
+
         if (!$scope.multiSelect) {
           closePopup();
           for (var i = 0; i < $scope.selectedItems.length; i++) {
@@ -204,7 +205,7 @@
             $scope.selectedItems.push(item);
           }
 
-          if (item.children && item.children.length > 0) {
+          if (!$scope.selectNotPropagate && item.children && item.children.length > 0) {
             domino(item.children);
 
             function domino(x) {
@@ -285,13 +286,17 @@
         outputModel: '=?',
         multiSelect: '=?',
         selectOnlyLeafs: '=?',
+        selectNotPropagate: '=?',
         callback: '&',
+        expandCallback: '=?',
+        expandProperty: '=?',
         defaultLabel: '@',
         extraButtons: '=?',
         directSearch: '=?',
         filterType: '@'
       },
       link: function (scope, element, attrs) {
+
         if (attrs.callback) {
           scope.useCallback = true;
         }
@@ -410,12 +415,13 @@
    * @param $scope - drag item scope
    */
   mainModule.controller('treeItemCtrl', [
-    '$scope',
-    function ($scope) {
+    '$scope', '$filter',
+    function ($scope, $filter) {
 
-      // Item is expanded by default
+
+      // Item is NOT expanded by default
       if ($scope.item.isExpanded !== false && $scope.item.isExpanded !== true) {
-        $scope.item.isExpanded = true;
+        $scope.item.isExpanded = false;
       }
 
       /**
@@ -436,6 +442,11 @@
       $scope.onExpandClicked = function (item, $event) {
         $event.stopPropagation();
         item.isExpanded = !item.isExpanded;
+
+        if (!item.hasBeenExpanded) {
+          $scope.expandCallback(item);
+          item.hasBeenExpanded = true;
+        }
       };
       /**
        * Event on click of select item.
@@ -500,9 +511,11 @@
         if (!$scope.multiSelect) {
           return false;
         }
+
         if ($scope.selectOnlyLeafs) {
           return false;
         }
+
         if ($scope.useCallback) {
           return $scope.canSelectItem($scope.item);
         }
@@ -524,7 +537,10 @@
           itemSelected: '&',
           onActiveItem: '&',
           multiSelect: '=?',
+          expandCallback: '=?',
+          expandProperty: '=?',
           selectOnlyLeafs: '=?',
+          selectNotPropagate: '=?',
           isActive: '=',
           useCallback: '=',
           canSelectItem: '='
