@@ -32,15 +32,16 @@
 }
 
 .tree-control .tree-view .active {
-    border-radius: 3px
+    border-radius: 3px;
 }
 
 .tree-control .tree-view .helper-container {
-    padding: 8px 8px 0
+    padding: 0px;
 }
 
 .tree-control .tree-view .tree-container {
-    padding: 8px
+    padding: 0px;
+    margin: 0px;
 }
 
 .tree-control .tree-view .item-container {
@@ -78,5 +79,5 @@
 }
 
 .tree-control .tree-view li.top-level {
-    margin: 0
+    margin: 0;
 }
