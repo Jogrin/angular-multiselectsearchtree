@@ -16,10 +16,10 @@
     </div>
     <div class="tree-view">
         <ul class="tree-container">
-            <tree-item class="top-level" ng-repeat="item in inputModel" item="item" ng-show="!item.isFiltered " use-callback="useCallback"
-                can-select-item="canSelectItem " multi-select="multiSelect" item-selected="itemSelected(item) " on-active-item="onActiveItem(item)"
-                select-only-leafs="selectOnlyLeafs" select-not-propagate="selectNotPropagate" expand-callback="expandCallback"
-                expand-property="expandProperty">
+            <tree-item class="top-level" ng-repeat="item in inputModel" item="item" ng-show="!item.isFiltered" use-callback="useCallback"
+                can-select-item="canSelectItem" multi-select="multiSelect" item-selected="itemSelected(item)" on-active-item="onActiveItem(item)"
+                select-only-leafs="selectOnlyLeafs" select-not-propagate="selectNotPropagate" click-callback="clickCallback"
+                expand-callback="expandCallback" expand-property="expandProperty">
             </tree-item>
         </ul>
     </div>

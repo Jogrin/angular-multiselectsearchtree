@@ -63,6 +63,7 @@
     cursor: pointer;
 }
 
+.tree-control .tree-view ul .item-details .cursor-hand,
 .tree-control .tree-view .item-container.withCheckbox:hover {
     cursor: pointer;
 }

@@ -9,12 +9,13 @@
             <md-checkbox aria-label="node" ng-if="showCheckbox()" ng-checked="item.selected">
                 {{item.name}}
             </md-checkbox>
-            <p ng-if="!showCheckbox()">{{item.name}}</p>
+            <p ng-if="!showCheckbox()" ng-class="clickCallback ? 'cursor-hand' : ''" ng-click="clickCallback(item)">{{item.name}}</p>
         </div>
     </div>
     <ul ng-repeat="child in item.children" ng-if="item.isExpanded">
         <tree-item item="child" item-selected="subItemSelected(item)" ng-if="!child.isFiltered" use-callback="useCallback" can-select-item="canSelectItem"
-            multi-select="multiSelect " on-active-item="activeSubItem(item, $event) " expand-callback="expandCallback" expand-property="expandProperty">
+            multi-select="multiSelect " on-active-item="activeSubItem(item, $event)" click-callback="clickCallback" expand-callback="expandCallback"
+            expand-property="expandProperty">
         </tree-item>
     </ul>
 </li>
